@@ -18,6 +18,11 @@ import java.util.UUID;
 
 public class ScrollingInventory {
 
+    private final Player clicker;
+    private final ArrayList<ShopItemType> items;
+    private int pageNumber;
+    private final String title;
+
     public static HashMap<UUID, ScrollingInventory> users = new HashMap<>();
 
     public ArrayList<Inventory> pages;
@@ -29,11 +34,6 @@ public class ScrollingInventory {
     public void setPageNumber(int pageNumber) {
         this.pageNumber = pageNumber;
     }
-
-    private final Player clicker;
-    private final ArrayList<ShopItemType> items;
-    private int pageNumber;
-    private final String title;
 
     public ScrollingInventory(Player clicker, ArrayList<ShopItemType> items, String title){
         this.clicker = clicker;

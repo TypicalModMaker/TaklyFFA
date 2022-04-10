@@ -1,6 +1,5 @@
 package dev.isnow.ffa.utils;
 
-import org.bukkit.ChatColor;
 import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -36,7 +35,7 @@ public class ItemBuilder implements Listener {
 
 	public ItemBuilder name(final String name) {
 		final ItemMeta meta = is.getItemMeta();
-		meta.setDisplayName(ChatColor.translateAlternateColorCodes('&', name));
+		meta.setDisplayName(ColorHelper.translate(name));
 		is.setItemMeta(meta);
 
 		return this;
@@ -61,7 +60,7 @@ public class ItemBuilder implements Listener {
 		ItemMeta meta = is.getItemMeta();
 
 		for (String string : lore) {
-			toSet.add(ChatColor.translateAlternateColorCodes('&', string));
+			toSet.add(ColorHelper.translate(string));
 		}
 
 		meta.setLore(toSet);

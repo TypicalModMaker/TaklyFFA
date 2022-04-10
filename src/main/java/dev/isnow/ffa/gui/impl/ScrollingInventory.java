@@ -46,20 +46,17 @@ public class ScrollingInventory {
     public void showInventory(){
         Inventory inventory = getBlankPage();
         int slot = 9;
-        for(ShopItemType item : items){
-            // slot is taken, go to the next slot
+        for(final ShopItemType item : items){
             if (inventory.getItem(slot) != null) slot++;
-            //if(inventory.getItem(slot).getType() != Material.AIR ) slot++;
 
             if(inventory.contains(item.getItem())) continue;
             inventory.setItem(slot, item.getItem());
-            if(slot == 44 && !isEmpty(slot, inventory)){
-                // new inventory
+            if(slot == 44 && isEmpty(slot, inventory)){
                 pages.add(inventory);
                 inventory = getBlankPage();
                 slot = 9;
                 if (otherPagesContain(item.getItem())) continue;
-                if(!isEmpty(slot, inventory)) slot++;
+                if(isEmpty(slot, inventory)) slot++;
                 inventory.setItem(slot, item.getItem());
 
             }
@@ -67,7 +64,6 @@ public class ScrollingInventory {
 
         pages.add(inventory);
         users.put(clicker.getUniqueId(), this);
-        // open first page
         Inventory inv = Iterables.getLast(pages);
         ItemStack skullRight = new ItemStack(Material.SKULL_ITEM, (byte) 1, (byte) 3);
         SkullMeta skullMeta = (SkullMeta) skullRight.getItemMeta();
@@ -79,13 +75,12 @@ public class ScrollingInventory {
 
     }
 
-    // helper methods
     private boolean isEmpty(int slot, Inventory inventory){
-        return inventory.getItem(slot) == null || inventory.getItem(slot).getType() == Material.AIR;
+        return inventory.getItem(slot) != null && inventory.getItem(slot).getType() != Material.AIR;
     }
 
     private boolean otherPagesContain(ItemStack item){
-        for(Inventory page : pages){
+        for(final Inventory page : pages){
             if(page.contains(item)) return true;
         }
 
@@ -94,7 +89,6 @@ public class ScrollingInventory {
 
     private Inventory getBlankPage(){
         Inventory blankPage;
-        // setting title and dependant items
         blankPage =  Bukkit.createInventory(null, 54, title);
 
         for (int i = 0; i < 9; i++) {
@@ -104,7 +98,6 @@ public class ScrollingInventory {
             gray.setItemMeta(im);
             blankPage.setItem(i, gray);
         }
-        // arrow head
         ItemStack skullRight = new ItemStack(Material.SKULL_ITEM, (byte) 1, (byte) 3);
         SkullMeta skullMeta = (SkullMeta) skullRight.getItemMeta();
         skullMeta.setOwner("MHF_ArrowRight");

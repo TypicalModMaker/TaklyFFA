@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 public class PlaceBlockListener implements Listener {
 
-    ArrayList<Location> blocks = new ArrayList<>();
+    final ArrayList<Location> blocks = new ArrayList<>();
 
     @EventHandler
     public void liquid(PlayerBucketEmptyEvent e) {

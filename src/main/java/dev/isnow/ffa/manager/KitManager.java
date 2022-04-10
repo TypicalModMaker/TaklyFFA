@@ -19,9 +19,9 @@ public class KitManager {
 
     private final TaklyFFA plugin = TaklyFFA.INSTANCE;
 
-    public ArrayList<ItemStack> armor = new ArrayList<>();
+    public final ArrayList<ItemStack> armor = new ArrayList<>();
 
-    public HashMap<ItemStack, Integer> items = new HashMap<>();
+    public final HashMap<ItemStack, Integer> items = new HashMap<>();
 
 
     public KitManager() {
@@ -33,13 +33,13 @@ public class KitManager {
 
         if (config.contains("equipment")) {
             try {
-                for(String s : config.getConfigurationSection("equipment").getKeys(false)) {
-                    ConfigurationSection cs = config.getConfigurationSection("equipment").getConfigurationSection(s);
-                    Material itemMat = Material.getMaterial(cs.getString("material"));
-                    int itemAmount = cs.getInt("amount");
+                for(final String s : config.getConfigurationSection("equipment").getKeys(false)) {
+                    final ConfigurationSection cs = config.getConfigurationSection("equipment").getConfigurationSection(s);
+                    final Material itemMat = Material.getMaterial(cs.getString("material"));
+                    final int itemAmount = cs.getInt("amount");
                     ItemStack is = new ItemStack(itemMat, itemAmount);
-                    List<String> enchStrings = cs.getStringList("enchantments");
-                    for(String s1 : enchStrings) {
+                    final List<String> enchStrings = cs.getStringList("enchantments");
+                    for(final String s1 : enchStrings) {
                         Enchantment ench = Enchantment.getByName(s1.split(":")[0]);
                         is = new ItemBuilder(is).enchantment(ench, Integer.parseInt(s1.split(":")[1])).build();
                     }
@@ -52,17 +52,17 @@ public class KitManager {
 
         if (config.contains("items")) {
             try {
-                for(String s : config.getConfigurationSection("items").getKeys(false)) {
-                    ConfigurationSection cs = config.getConfigurationSection("items").getConfigurationSection(s);
-                    Material itemMat = Material.getMaterial(cs.getString("material"));
-                    int itemAmount = cs.getInt("amount");
+                for(final String s : config.getConfigurationSection("items").getKeys(false)) {
+                    final ConfigurationSection cs = config.getConfigurationSection("items").getConfigurationSection(s);
+                    final Material itemMat = Material.getMaterial(cs.getString("material"));
+                    final int itemAmount = cs.getInt("amount");
                     ItemStack is = new ItemStack(itemMat, itemAmount);
-                    List<String> enchStrings = cs.getStringList("enchantments");
-                    for(String s1 : enchStrings) {
+                    final List<String> enchStrings = cs.getStringList("enchantments");
+                    for(final String s1 : enchStrings) {
                         Enchantment ench = Enchantment.getByName(s1.split(":")[0]);
                         is = new ItemBuilder(is).enchantment(ench, Integer.parseInt(s1.split(":")[1])).build();
                     }
-                    int slot = cs.getInt("slot");
+                    final int slot = cs.getInt("slot");
                     this.items.put(is, slot);
                 }
             } catch (Exception e) {

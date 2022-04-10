@@ -16,8 +16,8 @@ public class SetLocationCommand extends BaseCommand {
 
     @Override @Command(name = "setlocation", permission = "takly.admin", usage = "&cUsage: /setlocation <spawn|min|max>")
     public void onCommand(CommandArgs command) {
-        Player player = command.getPlayer();
-        String[] args = command.getArgs();
+        final Player player = command.getPlayer();
+        final String[] args = command.getArgs();
 
         if (args.length == 0) {
             player.sendMessage(ColorHelper.translate(command.getCommand().getUsage()));

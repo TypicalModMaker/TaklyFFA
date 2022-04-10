@@ -12,9 +12,7 @@ public class SpawnManager {
 
     private final TaklyFFA plugin = TaklyFFA.INSTANCE;
 
-    private CustomLocation spawnLocation;
-    private CustomLocation safezoneMin;
-    private CustomLocation safezoneMax;
+    private CustomLocation spawnLocation, safezoneMin, safezoneMax;
 
     private Cuboid cuboid;
 

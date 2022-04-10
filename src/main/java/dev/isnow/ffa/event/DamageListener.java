@@ -10,10 +10,8 @@ public class DamageListener implements Listener {
 
     @EventHandler
     public void onDamage(EntityDamageEvent e) {
-        if(e.getEntity() instanceof Player) {
-            if(TaklyFFA.INSTANCE.spawnManager.getCuboid().isIn((Player) e.getEntity())) {
-                e.setCancelled(true);
-            }
+        if(e.getEntity() instanceof Player && TaklyFFA.INSTANCE.spawnManager.getCuboid().isIn((Player) e.getEntity())) {
+            e.setCancelled(true);
         }
     }
 }

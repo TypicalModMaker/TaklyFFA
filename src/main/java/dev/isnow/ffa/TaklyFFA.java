@@ -3,7 +3,6 @@ package dev.isnow.ffa;
 import dev.isnow.ffa.config.ConfigManager;
 import dev.isnow.ffa.gui.GuiManager;
 import dev.isnow.ffa.guilds.GuildData;
-import dev.isnow.ffa.guilds.GuildDataManager;
 import dev.isnow.ffa.manager.ClassRegistrationManager;
 import dev.isnow.ffa.manager.KitManager;
 import dev.isnow.ffa.manager.SpawnManager;
@@ -18,7 +17,6 @@ import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -36,9 +34,9 @@ public enum TaklyFFA {
     public KitManager kitManager;
     public GuiManager guiManager;
 
-    public ArrayList<LimitType> limitTypeArrayList = new ArrayList<>();
-    public ArrayList<KillType> killTypeArrayList = new ArrayList<>();
-    public HashMap<Integer, KillType> killStreakHashmap = new HashMap<>();
+    public final ArrayList<LimitType> limitTypeArrayList = new ArrayList<>();
+    public final ArrayList<KillType> killTypeArrayList = new ArrayList<>();
+    public final HashMap<Integer, KillType> killStreakHashmap = new HashMap<>();
 
     private final CommandFramework commandFramework = new CommandFramework(this);
     private final ClassRegistrationManager crc = new ClassRegistrationManager();
@@ -48,11 +46,12 @@ public enum TaklyFFA {
     public void init(TaklyFFAPlugin provided) {
         plugin = provided;
 
-        long rn = System.currentTimeMillis();
+        final long startingTime = System.currentTimeMillis();
 
         plugin.saveDefaultConfig();
 
         initSQLConfig();
+
         if(plugin.getConfig().getBoolean("firstrun")) {
             Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "" + ChatColor.BOLD + "FIRST RUN DETECTED, EDIT mysql.yml!");
             getPlugin().getConfig().set("firstrun", false);
@@ -60,6 +59,7 @@ public enum TaklyFFA {
             Bukkit.getPluginManager().disablePlugin(plugin);
             return;
         }
+
         Bukkit.getConsoleSender().sendMessage("___________       __   .__         ___________________________   ");
         Bukkit.getConsoleSender().sendMessage("\\__    ___/____  |  | _|  | ___.__.\\_   _____/\\_   _____/  _  \\  ");
         Bukkit.getConsoleSender().sendMessage("  |    |  \\__  \\ |  |/ /  |<   |  | |    __)   |    __)/  /_\\  \\ ");
@@ -79,6 +79,7 @@ public enum TaklyFFA {
 
         Bukkit.getConsoleSender().sendMessage("Registering commands...");
         crc.loadCommands("dev.isnow.ffa.commands");
+
         Bukkit.getConsoleSender().sendMessage("Initializing config...");
         initConfig();
 
@@ -86,31 +87,31 @@ public enum TaklyFFA {
         initDatabase();
 
         Bukkit.getConsoleSender().sendMessage("Initializing guilds...");
-        initGuilds();
+//        initGuilds();
 
         Bukkit.getConsoleSender().sendMessage("Initializing scoreboard...");
         Assemble assemble = new Assemble(getPlugin(), new AssemblyAdapter());
         assemble.setTicks(2);
 
         Bukkit.getConsoleSender().sendMessage("Initializing limits...");
-        for(String s : TaklyFFA.INSTANCE.getPlugin().getConfig().getConfigurationSection("item-limit").getKeys(false)) {
-            String[] split = s.split("-");
-            Material mate = Material.getMaterial(split[0]);
-            short meta = 0;
+        for(final String s : TaklyFFA.INSTANCE.getPlugin().getConfig().getConfigurationSection("item-limit").getKeys(false)) {
+            final String[] split = s.split("-");
+            final Material mate = Material.getMaterial(split[0]);
+            short metadata = 0;
             if(split.length == 2) {
-                meta = Short.parseShort(split[1]);
+                metadata = Short.parseShort(split[1]);
             }
 
-            limitTypeArrayList.add(new LimitType(mate, meta));
+            limitTypeArrayList.add(new LimitType(mate, metadata));
         }
 
         Bukkit.getConsoleSender().sendMessage("Initializing killstreak rewards...");
-        for(String s : TaklyFFA.INSTANCE.getPlugin().getConfig().getConfigurationSection("killstreak-rewards").getKeys(false)) {
-            List<String> list = TaklyFFA.INSTANCE.getPlugin().getConfig().getConfigurationSection("killstreak-rewards").getStringList(s);
-            for(String s1 : list) {
-                String[] split = s1.split("-");
-                Material mate = Material.getMaterial(split[0]);
-                int amount = Integer.parseInt(split[1]);
+        for(final String s : TaklyFFA.INSTANCE.getPlugin().getConfig().getConfigurationSection("killstreak-rewards").getKeys(false)) {
+            final List<String> list = TaklyFFA.INSTANCE.getPlugin().getConfig().getConfigurationSection("killstreak-rewards").getStringList(s);
+            for(final String s1 : list) {
+                final String[] split = s1.split("-");
+                final Material mate = Material.getMaterial(split[0]);
+                final int amount = Integer.parseInt(split[1]);
                 short meta = 0;
                 if(split.length == 3) {
                     meta = Short.parseShort(split[2]);
@@ -121,11 +122,11 @@ public enum TaklyFFA {
         }
 
         Bukkit.getConsoleSender().sendMessage("Initializing kill rewards...");
-        List<String> list = TaklyFFA.INSTANCE.getPlugin().getConfig().getStringList("kill-rewards");
-        for(String s1 : list) {
-            String[] split = s1.split("-");
-            Material mate = Material.getMaterial(split[0]);
-            int amount = Integer.parseInt(split[1]);
+        final List<String> list = TaklyFFA.INSTANCE.getPlugin().getConfig().getStringList("kill-rewards");
+        for(final String s1 : list) {
+            final String[] split = s1.split("-");
+            final Material mate = Material.getMaterial(split[0]);
+            final int amount = Integer.parseInt(split[1]);
             short meta = 0;
             if(split.length == 3) {
                 meta = Short.parseShort(split[2]);
@@ -144,7 +145,7 @@ public enum TaklyFFA {
         this.guiManager = new GuiManager();
 
         Bukkit.getConsoleSender().sendMessage("----------------------------------------------------------------------");
-        Bukkit.getConsoleSender().sendMessage(ColorHelper.translate("&aSuccessfully loaded FFA in " + (System.currentTimeMillis() - rn) + " milliseconds!"));
+        Bukkit.getConsoleSender().sendMessage(ColorHelper.translate("&aSuccessfully loaded FFA in " + (System.currentTimeMillis() - startingTime) + " milliseconds!"));
         Bukkit.getConsoleSender().sendMessage("----------------------------------------------------------------------");
     }
 
@@ -157,7 +158,7 @@ public enum TaklyFFA {
         Bukkit.getConsoleSender().sendMessage("               \\/     \\/    \\/          \\/         \\/         \\/ ");
         Bukkit.getConsoleSender().sendMessage("Goodbye :)");
         if(sqlManager != null) {
-            for(Player p : Bukkit.getOnlinePlayers()) {
+            for(final Player p : Bukkit.getOnlinePlayers()) {
                 sqlManager.setStuff(p.getUniqueId());
             }
             sqlManager.closePool();
@@ -177,9 +178,9 @@ public enum TaklyFFA {
     }
 
     public void initGuilds() {
-        GuildDataManager.set("SusPlayers123", new GuildData("SusPlayers123", "SUS123", new ArrayList<>(), 0));
+//        GuildDataManager.set(new ArrayList<>(), 0, "SusPlayers123", new GuildData("SusPlayers123", "SUS123"));
         sqlManager.setStuffGuild("SusPlayers123");
-        sqlManager.getEveryGuildData();
+        ArrayList<GuildData> guildData = sqlManager.getEveryGuildData();
     }
     public void reloadConfigs() {
         getPlugin().reloadConfig();

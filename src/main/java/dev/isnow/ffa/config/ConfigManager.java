@@ -8,6 +8,8 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import java.io.File;
 import java.io.IOException;
 
+// This shit was not made by me
+// Dont laugh about this shit
 public class ConfigManager
 {
 
@@ -29,7 +31,7 @@ public class ConfigManager
     public void saveConfig(FileConfiguration config, String name) throws IOException {
         File dir = TaklyFFA.INSTANCE.getPlugin().getDataFolder();
         if (!dir.isDirectory()) {
-            dir.mkdirs();
+            final boolean result = dir.mkdirs();
         }
         File file = new File(TaklyFFA.INSTANCE.getPlugin().getDataFolder(), name + ".yml");
         config.save(file);

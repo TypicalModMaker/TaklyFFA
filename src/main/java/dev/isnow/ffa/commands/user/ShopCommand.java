@@ -11,8 +11,8 @@ public class ShopCommand extends BaseCommand {
 
     @Override @Command(name = "openshop", aliases = "shop", usage = "Usage: /shop")
     public void onCommand(CommandArgs command) {
-        Player player = command.getPlayer();
-        String[] args = command.getArgs();
+        final Player player = command.getPlayer();
+        final String[] args = command.getArgs();
 
         if (args.length > 0) {
             player.sendMessage(ColorHelper.translate("&c" + command.getCommand().getUsage()));

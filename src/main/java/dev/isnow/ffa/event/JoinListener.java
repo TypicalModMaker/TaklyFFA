@@ -15,9 +15,9 @@ public class JoinListener implements Listener {
 
     @EventHandler
     public void onJoin(PlayerJoinEvent e) {
-        UUID plrUUID = e.getPlayer().getUniqueId();
+        final UUID plrUUID = e.getPlayer().getUniqueId();
 
-        ArrayList<Integer> data = TaklyFFA.INSTANCE.sqlManager.getPlayerDataFromUUID(plrUUID);
+        final ArrayList<Integer> data = TaklyFFA.INSTANCE.sqlManager.getPlayerDataFromUUID(plrUUID);
         if(data.size() == 0) {
             PlayerDataManager.set(plrUUID, new PlayerData(0, 0, 0, TaklyFFA.INSTANCE.configManager.elo.getInt("elo-start"), 0, 0));
         }
@@ -35,7 +35,7 @@ public class JoinListener implements Listener {
         e.getPlayer().getInventory().setLeggings(TaklyFFA.INSTANCE.kitManager.armor.get(2));
         e.getPlayer().getInventory().setBoots(TaklyFFA.INSTANCE.kitManager.armor.get(3));
 
-        for(ItemStack i : TaklyFFA.INSTANCE.kitManager.items.keySet()) {
+        for(final ItemStack i : TaklyFFA.INSTANCE.kitManager.items.keySet()) {
             e.getPlayer().getInventory().setItem(TaklyFFA.INSTANCE.kitManager.items.get(i), i);
         }
     }

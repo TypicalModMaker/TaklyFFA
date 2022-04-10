@@ -12,7 +12,7 @@ public class ReloadCommand extends BaseCommand {
 
     @Override@Command(name = "reload", aliases = "reloadconfig", permission = "takly.admin")
     public void onCommand(CommandArgs command) {
-        plugin.reloadConfigs();
+        this.plugin.reloadConfigs();
         command.getPlayer().sendMessage(ColorHelper.translate("&aSuccessfully reloaded all the configs. &c&LBETA"));
     }
 }

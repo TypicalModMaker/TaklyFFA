@@ -1,6 +1,6 @@
 name: TaklyFFA
 version: 1.0
-description: TaklyFFA Plugin
+description: FFA Plugin made for my portfolio
 authors: ["5170"]
 website: https://isnow.dev
 main: dev.isnow.ffa.TaklyFFAPlugin

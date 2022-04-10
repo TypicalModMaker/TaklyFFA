@@ -18,7 +18,7 @@ public class RespawnListener implements Listener {
         e.getPlayer().getInventory().setLeggings(TaklyFFA.INSTANCE.kitManager.armor.get(2));
         e.getPlayer().getInventory().setBoots(TaklyFFA.INSTANCE.kitManager.armor.get(3));
 
-        for(ItemStack i : TaklyFFA.INSTANCE.kitManager.items.keySet()) {
+        for(final ItemStack i : TaklyFFA.INSTANCE.kitManager.items.keySet()) {
             e.getPlayer().getInventory().setItem(TaklyFFA.INSTANCE.kitManager.items.get(i), i);
         }
         new BukkitRunnable() {

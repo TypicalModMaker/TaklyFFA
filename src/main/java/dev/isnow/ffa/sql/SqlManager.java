@@ -115,9 +115,7 @@ public class SqlManager {
         try {
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             BukkitObjectOutputStream dataOutput = new BukkitObjectOutputStream(outputStream);
-            // Save element in the list
             dataOutput.writeObject(players);
-            // Serialize that array
             dataOutput.close();
             return Base64Coder.encodeLines(outputStream.toByteArray());
         } catch (Exception e) {
@@ -206,16 +204,16 @@ public class SqlManager {
             statement = connection.prepareStatement("SELECT * FROM guild_data_ffa WHERE Name='" + name + "';");
             statement.executeQuery();
             result = statement.getResultSet();
-            ArrayList<Object> Data = new ArrayList<>();
+            ArrayList<Object> data = new ArrayList<>();
             while (result.next()) {
                 String tag = result.getString("Tag");
                 ArrayList<OfflinePlayer> users = fromBase64(result.getString("Users"));
                 int elo = result.getInt("Elo");
-                Data.add(tag);
-                Data.add(users);
-                Data.add(elo);
+                data.add(tag);
+                data.add(users);
+                data.add(elo);
             }
-            return new GuildData(name, (String) Data.get(0), (ArrayList<OfflinePlayer>) Data.get(1), (int) Data.get(2));
+            return new GuildData((ArrayList<OfflinePlayer>) data.get(1), (int) data.get(2), name, (String) data.get(0));
         } catch(Exception exception) {
             exception.printStackTrace();
         } finally {
@@ -289,9 +287,9 @@ public class SqlManager {
     public void setStuffGuild(String name) {
         GuildData guildData = GuildDataManager.get(name);
         GuildData datasql = getGuildDataFromName(name);
+        Connection connection = null;
+        PreparedStatement statement = null;
         if(datasql != null) {
-            Connection connection = null;
-            PreparedStatement statement = null;
             try {
                 connection = hikari.getConnection();
                 statement = connection.prepareStatement("INSERT INTO guild_data_ffa (Name, Tag, Users, Elo)" + " VALUES ('" + name + "','" + guildData.getTag() + "','" + toBase64(guildData.getPlayers()) + "','" + guildData.getGuildElo() + "');");
@@ -303,8 +301,6 @@ public class SqlManager {
             }
         }
         else {
-            Connection connection = null;
-            PreparedStatement statement = null;
             try {
                 connection = hikari.getConnection();
                 statement = connection.prepareStatement("REPLACE INTO guild_data_ffa (Name, Tag, Users, Elo)" + " VALUES ('" + name + "','" + guildData.getTag() + "','" + toBase64(guildData.getPlayers()) + "','" + guildData.getGuildElo() + "');");

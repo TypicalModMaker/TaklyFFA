@@ -12,8 +12,8 @@ public class SetCoinsCommand extends BaseCommand {
 
     @Override @Command(name = "setcoins", aliases = "setbalance", permission = "takly.admin")
     public void onCommand(CommandArgs command) {
-        Player player = command.getPlayer();
-        String[] args = command.getArgs();
+        final Player player = command.getPlayer();
+        final String[] args = command.getArgs();
 
         if (args.length < 2) {
             player.sendMessage(ColorHelper.translate("&cUsage: /setcredits <player> <credits>"));
@@ -22,7 +22,7 @@ public class SetCoinsCommand extends BaseCommand {
 
         Player target = Bukkit.getPlayer(args[0]);
         if (target == null) {
-            player.sendMessage(ColorHelper.translate("&cThere are no players named '" + args[0] + "' online."));
+            player.sendMessage(ColorHelper.translate("&cThere is no player named '" + args[0] + "' online."));
             return;
         }
 

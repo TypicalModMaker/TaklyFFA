@@ -13,22 +13,22 @@ public class SetStatCommand extends BaseCommand {
 
     @Override @Command(name = "setstat", permission = "takly.admin", aliases = "setstats", usage = "Usage: /setstat <player> <kills/deaths/elo> <amount>")
     public void onCommand(CommandArgs command) {
-        Player player = command.getPlayer();
-        String[] args = command.getArgs();
+        final Player player = command.getPlayer();
+        final  String[] args = command.getArgs();
 
         if (args.length < 3) {
             player.sendMessage(ColorHelper.translate("&c" + command.getCommand().getUsage()));
             return;
         }
 
-        Player target = Bukkit.getPlayer(args[0]);
+        final Player target = Bukkit.getPlayer(args[0]);
         if (target == null) {
-            player.sendMessage(ColorHelper.translate("&cThere are no players named '" + args[0] + "' online."));
+            player.sendMessage(ColorHelper.translate("&cThere is no player named '" + args[0] + "' online."));
             return;
         }
 
-        PlayerData targetUser = PlayerDataManager.get(target.getUniqueId());
-        int amount = Integer.parseInt(args[2]);
+        final PlayerData targetUser = PlayerDataManager.get(target.getUniqueId());
+        final int amount = Integer.parseInt(args[2]);
         switch (args[1].toLowerCase()) {
             case "kills":
                 targetUser.setKills(amount);

@@ -13,7 +13,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class GuiManager {
@@ -23,7 +22,7 @@ public class GuiManager {
 
     public GuiManager() {
         try {
-            for(String s : plugin.getConfigManager().gui.getConfigurationSection("shop-items").getKeys(false)) {
+            for(final String s : plugin.getConfigManager().gui.getConfigurationSection("shop-items").getKeys(false)) {
                 ConfigurationSection cs = plugin.getConfigManager().gui.getConfigurationSection("shop-items").getConfigurationSection(s);
                 Material itemMat = Material.getMaterial(cs.getString("material"));
                 String name = ColorHelper.translate(cs.getString("name"));
@@ -35,9 +34,9 @@ public class GuiManager {
                     Enchantment ench = Enchantment.getByName(s1.split(":")[0]);
                     is = new ItemBuilder(is).enchantment(ench, Integer.parseInt(s1.split(":")[1])).build();
                 }
-                List<String> loreList = cs.getStringList("lore");
-                List<String> loreListFormatted = new ArrayList<>();
-                for(String s1 : loreList) {
+                final List<String> loreList = cs.getStringList("lore");
+                final List<String> loreListFormatted = new ArrayList<>();
+                for(final String s1 : loreList) {
                     loreListFormatted.add(ColorHelper.translate(s1));
                 }
                 ItemMeta im = is.getItemMeta();

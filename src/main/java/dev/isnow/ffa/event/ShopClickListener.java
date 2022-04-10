@@ -5,12 +5,10 @@ import dev.isnow.ffa.data.PlayerData;
 import dev.isnow.ffa.data.PlayerDataManager;
 import dev.isnow.ffa.utils.ColorHelper;
 import dev.isnow.ffa.utils.type.ShopItemType;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -21,15 +19,15 @@ public class ShopClickListener implements Listener {
 
     @EventHandler
     public void onClick(InventoryClickEvent event) {
-        Inventory inventory = event.getInventory();
         if (event.getWhoClicked() instanceof Player) {
-            Player clicker = (Player) event.getWhoClicked();
+            final Inventory inventory = event.getInventory();
+            final Player clicker = (Player) event.getWhoClicked();
             if (inventory == null || inventory.getTitle() == null || event.getCurrentItem() == null) {
                 return;
             }
             if (inventory.getName().equals(ColorHelper.translate(TaklyFFA.INSTANCE.configManager.gui.getString("shop-title")))) {
                 event.setCancelled(true);
-                for(ShopItemType type : TaklyFFA.INSTANCE.getGuiManager().items) {
+                for(final ShopItemType type : TaklyFFA.INSTANCE.getGuiManager().items) {
                     if(type.getItem().getType() == event.getCurrentItem().getType() && Objects.equals(type.getItem().getItemMeta().getDisplayName(), event.getCurrentItem().getItemMeta().getDisplayName())) {
                         PlayerData data = PlayerDataManager.get(clicker.getUniqueId());
                         if(data.getCoins() >= type.getCost()) {

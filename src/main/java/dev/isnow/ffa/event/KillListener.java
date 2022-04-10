@@ -23,9 +23,9 @@ public class KillListener implements Listener {
         if(e.getEntity().getKiller() != null) {
             e.getDrops().clear();
 
-            Player killer = e.getEntity().getKiller();
+            final Player killer = e.getEntity().getKiller();
 
-            for(KillType kt : TaklyFFA.INSTANCE.killTypeArrayList) {
+            for(final KillType kt : TaklyFFA.INSTANCE.killTypeArrayList) {
                 if(TaklyFFA.INSTANCE.getPlugin().getConfig().getBoolean("kill-rewards-to-inventory")) {
                     killer.getInventory().addItem(new ItemStack(kt.getMaterial(), kt.getAmount(), kt.getData()));
                 }
@@ -34,8 +34,8 @@ public class KillListener implements Listener {
                 }
             }
 
-            PlayerData killerData = PlayerDataManager.get(killer.getUniqueId());
-            PlayerData playerData = PlayerDataManager.get(e.getEntity().getUniqueId());
+            final PlayerData killerData = PlayerDataManager.get(killer.getUniqueId());
+            final PlayerData playerData = PlayerDataManager.get(e.getEntity().getUniqueId());
 
             playerData.setStreak(0);
             killerData.setStreak(killerData.getStreak() + 1);
@@ -47,19 +47,15 @@ public class KillListener implements Listener {
             killerData.setKills(killerData.getKills() + 1);
 
             killerData.setCoins(killerData.getCoins() + 10);
+
             int[] eloChanges = getEloValues(playerData.getElo(), killerData.getElo());
 
-            if(playerData.getElo() - eloChanges[1] > 0) {
-                playerData.setElo(playerData.getElo() - eloChanges[1]);
-            }
-            else {
-                playerData.setElo(0);
-            }
+            playerData.setElo(Math.max(playerData.getElo() - eloChanges[1], 0));
             killerData.setElo(killerData.getElo() + eloChanges[0]);
 
             if(TaklyFFA.INSTANCE.killStreakHashmap.get(killerData.getStreak()) != null) {
-                KillType type = TaklyFFA.INSTANCE.killStreakHashmap.get(killerData.getStreak());
-                ItemStack is = new ItemBuilder(new ItemStack(type.getMaterial(), type.getAmount(), type.getData())).build();
+                final KillType type = TaklyFFA.INSTANCE.killStreakHashmap.get(killerData.getStreak());
+                final ItemStack is = new ItemBuilder(new ItemStack(type.getMaterial(), type.getAmount(), type.getData())).build();
                 killer.getInventory().addItem(is);
                 killer.sendMessage(ColorHelper.translate(TaklyFFA.INSTANCE.getPlugin().getConfig().getConfigurationSection("messages").getString("killstreak-message")));
             }
@@ -69,7 +65,7 @@ public class KillListener implements Listener {
             }
 
             if(TaklyFFA.INSTANCE.getPlugin().getConfig().getBoolean("regenerate-armor")) {
-                for(ItemStack i : killer.getInventory().getContents()) {
+                for(final ItemStack i : killer.getInventory().getContents()) {
                     if(i != null && i.getType() != null && i.getType() != Material.AIR) {
                         if(i.getType() == TaklyFFA.INSTANCE.kitManager.armor.get(0).getType()) {
                             i.setDurability(TaklyFFA.INSTANCE.kitManager.armor.get(0).getType().getMaxDurability());
@@ -100,23 +96,24 @@ public class KillListener implements Listener {
                 e.getEntity().getWorld().strikeLightningEffect(e.getEntity().getLocation());
             }
             e.getDrops().clear();
-            for(KillType kt : TaklyFFA.INSTANCE.killTypeArrayList) {
+            for(final KillType kt : TaklyFFA.INSTANCE.killTypeArrayList) {
                 e.getDrops().add(new ItemStack(kt.getMaterial(), kt.getAmount(), kt.getData()));
             }
         }
     }
 
+    // Stolen from funnyguilds
     private int[] getEloValues(final float victimPoints, final float attackerPoints) {
         final int[] rankChanges = new int[2];
-        HashMap<IntegerRange, Integer> map = new HashMap<>();
+        final HashMap<IntegerRange, Integer> map = new HashMap<>();
 
-        for(String s : TaklyFFA.INSTANCE.configManager.elo.getStringList("elo-rank-changes")) {
-            String[] splitted = s.split("-");
-            if(splitted[1].equals("inf")) {
-                splitted[1] = String.valueOf(Integer.MAX_VALUE);
+        for(final String s : TaklyFFA.INSTANCE.configManager.elo.getStringList("elo-rank-changes")) {
+            final String[] split = s.split("-");
+            if(split[1].equals("inf")) {
+                split[1] = String.valueOf(Integer.MAX_VALUE);
             }
 
-            map.put(new IntegerRange(Integer.parseInt(splitted[0]), Integer.parseInt(splitted[1])), Integer.parseInt(splitted[2]));
+            map.put(new IntegerRange(Integer.parseInt(split[0]), Integer.parseInt(split[1])), Integer.parseInt(split[2]));
         }
 
         final int attackerElo = IntegerRange.inRange((int) attackerPoints, map).orElseGet(0);

@@ -1,0 +1,53 @@
+#DO NOT EDIT!
+firstrun: true
+
+# Item limit per player
+# Format:
+# Material-metadata*: amount
+# * == Optional
+item-limit:
+  GOLDEN_APPLE: 12
+  GOLDEN_APPLE-1: 0
+
+# Execute a lightning whenever someone kills someone
+kill-lightning: true
+
+#In ticks, 20 ticks == 1 second
+block-break-time: 100 # 5 seconds
+
+#Regenerate armor on kill
+regenerate-armor: true
+
+#Message only on global chat
+global-chat-message-only: true
+
+# Message after death
+messages:
+  killed-message: "&c&lSMIERC! &7%victim% zginal przez %attacker% [-%victimelo%, +%attackerelo%."
+  killstreak-message: "&c&lSTREAK ZABOJSTW! &7Dostales nowy item za streak, spojrz na swoje eq!"
+  hit-projectile-message: "&c%hp%♥"
+  elo-messages:
+    victim: "&c&lSMIERC! &7Zostales zabity przez %attacker% -%elo% elo."
+    killer: "&c&lSMIERC! &7Zabiles %victim% +%elo% elo."
+  shop-messages:
+    successfully-purchased: "&aPomyslnie kupiono ten przedmiot!"
+    not-enough-money: "&cNie wystarczajaco pieniedzy aby kupic ten przedmiot."
+    no-next-page: "&cBrak nastepnej strony!"
+
+#Drop those items on kill
+# Format:
+# Material, amount, metadata*: amount
+# * == Optional
+kill-rewards:
+  - "GOLDEN_APPLE-1-0"
+
+#Make all rewards go directly into the inventory
+kill-rewards-to-inventory: true
+
+# Rewards for killstreak
+# Format:
+# Material, amount, metadata*
+# * == Optional
+killstreak-rewards:
+  5:
+    - "POTION-1-8195"

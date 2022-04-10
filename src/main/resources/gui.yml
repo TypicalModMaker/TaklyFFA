@@ -1,0 +1,17 @@
+shop-title: "&dTAKLY.GG &5Sklep"
+shop-buttons:
+  right: "&cNastepna Strona"
+  left: "&cPoprzednia Strona"
+shop-items:
+  EXAMPLE_ITEM:
+    material: BARRIER
+    name: "&cPrzykladowy Item"
+    metadata: 0
+    amount: 1
+    price: 69
+    lore:
+      - "&cNikolas edytuj to bo nic w trello nie bylo"
+      - "&7I mi sie nie chce wymyslac rzeczy"
+      - "&7To jest w gui.yml"
+    enchantments:
+      - "DURABILITY:1"

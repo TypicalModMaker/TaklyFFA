@@ -1,0 +1,5 @@
+username: "root" # Username for the database
+password: "" # Password for the user
+database: "FFA" # Database name
+ip: "127.0.0.1" # IP for the MYSQL server
+port: "3306" # Port for the MYSQL Server

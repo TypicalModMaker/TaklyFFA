@@ -1,0 +1,12 @@
+# Starting elo of the player
+# Default value is 500 (recommended)
+elo-start: 500
+
+# Rank changes, in %
+# 500-599 5%
+# 600-700 10%
+# 701-2147483647 15%
+elo-rank-changes:
+  - 0-599-5
+  - 600-700-10
+  - 701-inf-15

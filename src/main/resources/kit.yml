@@ -1,0 +1,72 @@
+equipment:
+  HELMET:
+    material: DIAMOND_HELMET
+    amount: 1
+    enchantments:
+      - "PROTECTION_ENVIRONMENTAL:3"
+      - "DURABILITY:1"
+  CHESTPLATE:
+    material: DIAMOND_CHESTPLATE
+    amount: 1
+    enchantments:
+      - "PROTECTION_ENVIRONMENTAL:3"
+      - "DURABILITY:1"
+  LEGGINGS:
+    material: DIAMOND_LEGGINGS
+    amount: 1
+    enchantments:
+      - "PROTECTION_ENVIRONMENTAL:3"
+      - "DURABILITY:1"
+  BOOTS:
+    material: DIAMOND_BOOTS
+    amount: 1
+    enchantments:
+      - "PROTECTION_ENVIRONMENTAL:3"
+      - "DURABILITY:1"
+
+items:
+  SWORD:
+    material: DIAMOND_SWORD
+    slot: 0
+    amount: 1
+    enchantments:
+      - "DAMAGE_ALL:4"
+      - "DURABILITY:1"
+  PICKAXE:
+    material: DIAMOND_PICKAXE
+    slot: 6
+    amount: 1
+    enchantments:
+      - "DIG_SPEED:5"
+      - "DURABILITY:3"
+  BOW:
+    material: BOW
+    slot: 1
+    amount: 1
+    enchantments:
+      - "ARROW_FIRE:1"
+  ARROWS:
+    material: ARROW
+    slot: 17
+    amount: 12
+    enchantments: []
+  ENDERPEARLS:
+    material: ENDER_PEARL
+    slot: 3
+    amount: 8
+    enchantments: []
+  FOOD:
+    material: COOKED_BEEF
+    slot: 5
+    amount: 32
+    enchantments: []
+  BLOCKS:
+    material: STONE
+    slot: 2
+    amount: 64
+    enchantments: []
+  BUCKET:
+    material: WATER_BUCKET
+    slot: 4
+    amount: 1
+    enchantments: []

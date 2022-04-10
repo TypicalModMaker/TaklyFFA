@@ -1,0 +1,10 @@
+scoreboard-title: "&dTakly.GG"
+scoreboard-lines:
+  - "&7&m-----------------"
+  - "&dZabojstwa: &5%kills%"
+  - "&dSmierci: &5%deaths%"
+  - "&dMonety: &5%coins%"
+  - "&dStreak: &5%streak%"
+  - "&dNajlepszy Streak: &5%beststreak%"
+  - "&dRanking: &5%elo%"
+  - "&7&m-----------------"

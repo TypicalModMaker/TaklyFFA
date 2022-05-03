@@ -12,7 +12,7 @@ Simple FFA plugin with shop and database support.
 I made this ffa plugin purely for my portfolio.
 
 # Requirements
-Spigot
+Spigot, 
 SQL based database
 
 # Installation
